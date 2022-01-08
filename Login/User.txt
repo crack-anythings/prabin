@@ -1,0 +1,8 @@
+
+Google Ckient ID
+
+975418872124-2b0k39bda0dvsk3pi8k0gpch8n56ik6u.apps.googleusercontent.com
+
+Google Client secret
+
+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
