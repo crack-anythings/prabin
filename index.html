@@ -1,83 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Prabin Notes</title>
-  <link rel="stylesheet" href="style.css">
-  <!-- Google Font -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prabin Notes</title>
+
+    <link rel="stylesheet" href="style.css">
+      <!-- Google Font -->
   <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+  <script>
+      const maxTrail = 100;
+let trailIndex = 0;
+const moveThreshold = 10;
+const maxSpeed = 5000;
+const maxSize = 24;
+const maxColor = 16777215;
+let x = 0;
+let y = 0;
+let diffX = 0;
+let diffY = 0;
 
-<link rel="shortcut icon" href="assets/images/favicon.png" type="image/x-icon">
-   <script src="star.js"></script>
-  
+window.addEventListener("mousemove", (e) => {
+  diffX = Math.abs(x - e.offsetX);
+  diffY = Math.abs(y - e.offsetY);
+  if (diffX >= moveThreshold || diffY >= moveThreshold) {
+    spawnTrail(e);
+  }
+
+  x = e.offsetX;
+  y = e.offsetY;
+});
+
+function spawnTrail(e) {
+  if (trailIndex >= maxTrail) return;
+  trailIndex++;
+  const trail = document.createElement("div");
+
+  let size = Math.floor(Math.random() * maxSize + 1) + "px";
+  let speed = Math.floor(Math.random() * maxSpeed + 1);
+  let color = "#" + Math.floor(Math.random() * maxColor).toString(16);
+  trail.classList.add("trail");
+  trail.style.backgroundColor = color;
+  trail.style.left = e.pageX + "px";
+  trail.style.top = e.pageY + "px";
+  trail.style.width = size;
+  trail.style.animation = "trail " + speed + "ms linear forwards";
+  setTimeout(function () {
+    trail.remove();
+    trailIndex--;
+  }, speed);
+
+  document.body.appendChild(trail);
+}
 
 
+  </script>
+  <link rel="shortcut icon" href="assets/images/favicon.png" type="image/x-icon">
 </head>
-
 <body>
-
-
-  <div id="loader">
-    <svg viewBox="0 0 1320 300">
-      <text x="50%" y="50%" dy=".35em" text-anchor="middle">
-        Prabin notes
-      </text>
-    </svg>
-  </div>
-
-  <div id="contant">
-
-  </div>
-  
-  
-  
-  
-  
-  
-  
-    <script>
-document.onkeydown = function(e) {
-if(event.keyCode == 123) {
-return false;
-}
-if(e.ctrlKey && e.keyCode == 'E'.charCodeAt(0)){
-return false;
-}
-if(e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)){
-return false;
-}
-if(e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)){
-return false;
-}
-if(e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)){
-return false;
-}
-if(e.ctrlKey && e.keyCode == 'S'.charCodeAt(0)){
-return false;
-}
-if(e.ctrlKey && e.keyCode == 'H'.charCodeAt(0)){
-return false;
-}
-if(e.ctrlKey && e.keyCode == 'A'.charCodeAt(0)){
-return false;
-}
-if(e.ctrlKey && e.keyCode == 'E'.charCodeAt(0)){
-return false;
-}
-}
-</script>
+    <div id="loader">
+        <svg viewBox="0 0 1320 300">
+          <text x="50%" y="50%" dy=".35em" text-anchor="middle">
+            Prabin notes
+          </text>
+        </svg>
+      </div>
 
 </body>
-<!--Pre Loader Script Start-->
-<script>
-  window.onload = function(){
-    document.getElementById("loader").style.display = "block";
-    document.getElementById("contant").style.display = "block";
-      }
-</script>
-<!--Pre Loader Script End-->
-
 </html>
